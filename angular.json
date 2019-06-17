@@ -116,5 +116,8 @@
         }
       }
     }},
-  "defaultProject": "schematrics-blog"
+  "defaultProject": "schematrics-blog",
+  "cli": {
+    "defaultCollection": "project-schematics"
+  }
 }
