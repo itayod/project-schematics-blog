@@ -1,0 +1,22 @@
+{
+  "id": "HelloSchematics",
+  "title": "Hello My Schematics Project",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the schematic.",
+      "visible": false
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of whom to say hello to.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    }
+  },
+  "required": []
+}
