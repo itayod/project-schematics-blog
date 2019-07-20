@@ -1,16 +1,37 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
+import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-
+import {
+  getTestProjectPath,
+  createWorkspace,
+  defaultWorkspaceOptions,
+  defaultAppOptions
+} from '../utils/create-workspace';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
+describe('Feature', () => {
+  const schematicRunner = new SchematicTestRunner('schematics', collectionPath);
 
-describe('feature', () => {
-  it('works', () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = runner.runSchematic('feature', {name: 'My Feature'}, Tree.empty());
+  let appTree: UnitTestTree;
 
-    expect(tree).toBeTruthy();
+  beforeEach(() => {
+    appTree = createWorkspace(schematicRunner, appTree);
+  });
+
+  it('should create a proper module', () => {
+    const options = {
+      name: 'foo',
+      project: 'baz'
+    };
+
+    const specifiedProjectPath = getTestProjectPath(defaultWorkspaceOptions, {
+      ...defaultAppOptions,
+      name: 'baz'
+    });
+
+    const tree = schematicRunner.runSchematic('feature', options, appTree);
+    const content = tree.readContent(`${specifiedProjectPath}/src/lib/foo/foo.module.ts`);
+
+    expect(content).toMatchSnapshot();
   });
 });

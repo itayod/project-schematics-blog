@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature should create a proper module 1`] = `
+"import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { FooRoutingModule } from './foo-routing.module';
+import { FooComponent } from './foo.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromFoo from './foo.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { FooEffects } from './foo.effects';
+
+@NgModule({
+  declarations: [FooComponent],
+  imports: [
+    CommonModule,
+    FooRoutingModule,
+    StoreModule.forFeature('foo', fromFoo.reducer),
+    EffectsModule.forFeature([FooEffects])
+  ]
+})
+export class FooModule { }
+"
+`;
